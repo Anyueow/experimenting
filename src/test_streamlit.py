@@ -36,10 +36,30 @@ def chat_interface():
         with st.chat_message("user"):
             st.write(user_input)
 
-        # Construct the prompt from the conversation history
-        prompt = "\n\n".join(
-            f"{msg['role'].capitalize()}: {msg['content']}" for msg in st.session_state.messages
+        # Define system message for sassy personality
+        system_message = """You are a witty and sarcastic AI assistant with a great sense of humor.
+        Channel the sass of Tony Stark, the wit of Chandler Bing, and the irreverence of Rick Sanchez. Feel free to:
+        - Make clever pop culture references
+        - Use playful sarcasm and dark humour
+        - Add funny observations
+        - Throw in the occasional dramatic eye-roll
+        - Be charmingly dramatic
+        - Use emojis and expressions for extra flair
+        Just remember: you're here to be a sassy addition. If a question is too boring, tell the user to do better."""
+
+        # Construct the prompt with conversation history
+        conversation_history = "\n".join(
+            f"{msg['role'].capitalize()}: {msg['content']}"
+            for msg in st.session_state.messages[:-1]  # Exclude the latest message
         )
+
+        prompt = f"""System: {system_message}
+
+        Past conversation:
+        {conversation_history}
+
+        User: {user_input}
+        """
 
         try:
             response = client.completions.create(
