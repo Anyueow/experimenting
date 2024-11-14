@@ -1,7 +1,7 @@
 # interface.py
 
 import streamlit as st
-from grok_client import get_grok_client
+from test_streamlit import get_grok_client
 
 def chat_interface():
     client = get_grok_client()
