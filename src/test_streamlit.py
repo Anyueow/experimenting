@@ -28,10 +28,10 @@ def chat_interface():
     st.set_page_config(layout="wide")
 
     # Header for the chatbot
-    st.title("🎭 Sassy Grok: The AI with Attitude")
+    st.title("🎭 Sassy Grok")
     st.markdown("##### *An irreverent AI assistant by @anyueow*")
     st.markdown("""
-        **Warning:** This model is here for entertainment and scathing replies only. Use sparingly if you value your ego! 😉
+        **Warning:** This model is here for entertainment and scathing replies only, use for content & text generation. Also i only have $25 credits so if it runs out, sorry lol
     """)
 
     # Initialize session state for message history
