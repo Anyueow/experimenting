@@ -36,12 +36,16 @@ def chat_interface():
         with st.chat_message("user"):
             st.write(user_input)
 
+        # Construct the prompt from the conversation history
+        prompt = "\n\n".join(
+            f"{msg['role'].capitalize()}: {msg['content']}" for msg in st.session_state.messages
+        )
+
         try:
             response = client.completions.create(
                 model="grok-1",
-                max_tokens=128,
-                messages=st.session_state.messages,
-                stream=False
+                max_tokens_to_sample=128,
+                prompt=prompt
             )
             bot_response = response.completion.strip()
             st.session_state.messages.append({"role": "assistant", "content": bot_response})
