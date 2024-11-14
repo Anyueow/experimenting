@@ -5,7 +5,7 @@ from anthropic import Anthropic
 
 
 def get_grok_client():
-    # Retrieve the API key from Streamlit's secrets management
+
     XAI_API_KEY = st.secrets['XAI_API_KEY']
 
     if not XAI_API_KEY:
