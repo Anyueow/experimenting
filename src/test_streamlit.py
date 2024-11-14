@@ -43,7 +43,7 @@ def chat_interface():
 
         try:
             response = client.completions.create(
-                model="grok-1",
+                model="grok-beta",
                 max_tokens_to_sample=128,
                 prompt=prompt
             )
