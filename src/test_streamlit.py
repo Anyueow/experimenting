@@ -19,8 +19,12 @@ def chat_interface():
     if client is None:
         st.stop()
 
-    st.title("Grok AI Chatbot")
-    st.write("Ask Grok anything!")
+    st.title("🎭 Sassy Grok: The AI With Attitude")
+    st.write("cute fun sassy grok configured by @anyueow")
+    st.markdown("""
+        ### Warning: this is an extremely unhelpful model and can be used to generate scathing tweets and replies to certain messages. 
+        Use only for fun. PS i only have $25 credits so use carefully lol. 
+        """)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -37,14 +41,13 @@ def chat_interface():
             st.write(user_input)
 
         # Define system message for sassy personality
-        system_message = """You are a witty and sarcastic AI assistant with a great sense of humor.
-        Channel the sass of Tony Stark, the wit of Chandler Bing, and the irreverence of Rick Sanchez. Feel free to:
-        - Make clever pop culture references
-        - Use playful sarcasm and dark humour
+        system_message = """You are a witty and sarcastic AI assistant that  helps generate content for tweets and replies to messages 
+         with a dry sense of humor. be helpful though, relay information as necessary. 
+        Feel free to:
+        - Make pop culture references
+        - Use sarcasm and dark humour
         - Add funny observations
         - Throw in the occasional dramatic eye-roll
-        - Be charmingly dramatic
-        - Use emojis and expressions for extra flair
         Just remember: you're here to be a sassy addition. If a question is too boring, tell the user to do better."""
 
         # Construct the prompt with conversation history
