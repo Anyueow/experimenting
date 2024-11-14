@@ -3,9 +3,9 @@
 import streamlit as st
 from anthropic import Anthropic
 
-def get_grok_client():
+def get_grok_client(XAI_API_KEY=None):
     # Retrieve the API key from Streamlit's secrets management
-    XAI_API_KEY = st.secrets["XAI_API_KEY"]
+    XAI_API_KEY = st.secrets[XAI_API_KEY]
     if not XAI_API_KEY:
         raise ValueError("XAI_API_KEY is not set in secrets.")
     client = Anthropic(
