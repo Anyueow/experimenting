@@ -26,29 +26,7 @@ def chat_interface():
 
     # Set wide layout for the app
     st.set_page_config(layout="wide")
-    st.markdown(
-        """
-        <style>
-            /* Page styling */
-            .stApp { background-color: #f9f9f9; }
 
-            /* Chat container styling */
-            .chat-container { 
-                border: 1px solid #ddd; 
-                padding: 10px;
-                background-color: #ffffff; 
-                border-radius: 10px; 
-                margin-top: 20px;
-            }
-
-            /* Chat message styling */
-            .user-message { background-color: #e6f7ff; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
-            .assistant-message { background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
-            .system-message { font-size: 12px; color: #888888; }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
 
     # Header for the chatbot
     st.title("🎭 Sassy Grok: The AI with Attitude")
@@ -59,8 +37,12 @@ def chat_interface():
         </div>
         """, unsafe_allow_html=True)
 
-    # Initialize session state for message history
+    # Initialize session state for message history with reset option on refresh
     if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    # Option to clear the chat history manually
+    if st.button("Clear Chat History"):
         st.session_state.messages = []
 
     # Display chat messages with borders and background colors
