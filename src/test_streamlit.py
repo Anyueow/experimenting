@@ -24,42 +24,36 @@ def chat_interface():
     if client is None:
         st.stop()
 
-    # Set wide layout for the app
+    # Set page configuration for wide layout
     st.set_page_config(layout="wide")
-
 
     # Header for the chatbot
     st.title("🎭 Sassy Grok: The AI with Attitude")
-    st.markdown("##### *A cute, fun, and sassy AI assistant by @anyueow*")
+    st.markdown("##### *An irreverent AI assistant by @anyueow*")
     st.markdown("""
-        <div class="system-message">
-        Warning: This model is here for entertainment and scathing replies. Limited to $25 in credits, so proceed with caution! 😉
-        </div>
-        """, unsafe_allow_html=True)
+        **Warning:** This model is here for entertainment and scathing replies only. Use sparingly if you value your ego! 😉
+    """)
 
-    # Initialize session state for message history with reset option on refresh
+    # Initialize session state for message history
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # Option to clear the chat history manually
-    if st.button("Clear Chat History"):
-        st.session_state.messages = []
-
-    # Display chat messages with borders and background colors
-    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+    # Display chat messages with default Streamlit chat styling
     for message in st.session_state.messages:
-        message_class = "user-message" if message["role"] == "user" else "assistant-message"
-        with st.markdown(f'<div class="{message_class}">', unsafe_allow_html=True):
-            st.write(f"{message['content']}")
-        st.markdown("</div>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+        if message["role"] == "user":
+            with st.chat_message("user"):
+                st.write(message["content"])
+        else:
+            with st.chat_message("assistant"):
+                st.write(message["content"])
 
-    # User input field
-    user_input = st.text_input("Your message:", key="user_input")
+    # User input field at the bottom of the page
+    user_input = st.chat_input("Your message:")
 
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
-        st.write(user_input)
+        with st.chat_message("user"):
+            st.write(user_input)
 
         # Define system message for sassy personality
         system_message = """You are a witty and sarcastic AI assistant designed to generate content for tweets and witty replies.
@@ -91,9 +85,8 @@ def chat_interface():
             )
             bot_response = response.completion.strip()
             st.session_state.messages.append({"role": "assistant", "content": bot_response})
-            with st.markdown(f'<div class="assistant-message">', unsafe_allow_html=True):
+            with st.chat_message("assistant"):
                 st.write(bot_response)
-            st.markdown("</div>", unsafe_allow_html=True)
         except Exception as e:
             st.error(f"Error in API call: {e}")
 
